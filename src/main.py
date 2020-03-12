@@ -1,5 +1,6 @@
 import sys
 from Replyer import Replyer
+from mapa import Mapa
 
 
 def read_input(file_path):
@@ -15,11 +16,12 @@ def read_input(file_path):
         linhas_devs = linhas[n+2:qtd_devs+n+2]
         linhas_pos = linhas[qtd_devs+n+3::]
         mapa_final = []
+
         for linha in mapa:
             linha_mapa = [c for c in linha if c !='\n']
             mapa_final.append(linha_mapa)
 
-
+        mapa_final = Mapa(mapa_final)
         list_devs = []
         i = 0
         for dev in linhas_devs:
@@ -45,8 +47,10 @@ def read_input(file_path):
 
 
 mapa_final, list_devs, list_pos = read_input(sys.argv[1])
-print('mapa')
-for m in mapa_final:
+mapa_final.config_map()
+score = mapa_final.get_score(list_devs, list_pos)
+print(score)
+for m in mapa_final.mapa:
     print(m)
 
 print('devs')
