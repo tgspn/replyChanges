@@ -47,7 +47,7 @@ def read_input(file_path):
 
 
 mapa_final, list_devs, list_pos = read_input(sys.argv[1])
-print(list_pos)
+
 # for m in mapa_final:
 #     print(m)
 max_score = -1
@@ -59,6 +59,23 @@ while(True):
 	score = mapa_.get_score(list_devs, list_pos)
 	if max_score < score:
 		max_score = score
-		print(max_score)
-print(score)
+		
+		output_devs = list()
+		output_pos = list()
+		for dev in list_devs:
+			if dev.x != None:
+				output_devs.append(str(dev.x) + ' ' + str(dev.y))
+			else:
+				output_devs.append('X')
+		for po in list_pos:
+			if po.x != None:
+				output_pos.append(str(po.x) + ' ' + str(po.y))
+			else:
+				output_pos.append('X')
+		
+		result_output = '\n'.join(output_devs) + '\n' + '\n'.join(output_pos)
+		output_filename = sys.argv[2] + '/' + (sys.argv[1].split('/')[-1]).replace('.txt', '') + '.' + str(score)
 
+		print(output_filename)
+		with open(output_filename, 'w') as f:
+			f.write(result_output)
