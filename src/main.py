@@ -48,25 +48,8 @@ def read_input(file_path):
 
 mapa_final, list_devs, list_pos = read_input(sys.argv[1])
 mapa_final.config_map()
+mapa_final.set_random(list_devs, list_pos)
 score = mapa_final.get_score(list_devs, list_pos)
 print(score)
 for m in mapa_final.mapa:
     print(m)
-
-print('devs')
-for item in list_devs:
-    print(item.id)
-    print(item.company)
-    print(item.bonus)
-    print(item.skills)
-    print(item.dev_friends)
-    print(item.po_friends)
-
-print('pos')
-for item in list_pos:
-    print(item.id)
-    print(item.company)
-    print(item.bonus)
-    print(item.skills)
-    print(item.dev_friends)
-    print(item.po_friends)
