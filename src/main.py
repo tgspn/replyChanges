@@ -1,6 +1,7 @@
 import sys
 from Replyer import Replyer
 from mapa import Mapa
+import random
 
 
 def read_input(file_path):
@@ -52,9 +53,11 @@ mapa_.set_random(list_devs, list_pos)
 max_score = -1
 
 while(True):
-	for i in range(1):
+	if random.random() < 0.42:
 		x, y = mapa_.pegar_o_mais_fdp()
 		mapa_.random_swap_fdp(x, y, list_devs, list_pos)
+	else:
+		mapa_.set_random(list_devs, list_pos)
 	score = mapa_.get_score(list_devs, list_pos)
 	if max_score < score:
 		max_score = score
@@ -63,12 +66,12 @@ while(True):
 		output_pos = list()
 		for dev in list_devs:
 			if dev.x != None:
-				output_devs.append(str(dev.x) + ' ' + str(dev.y))
+				output_devs.append(str(dev.y) + ' ' + str(dev.x))
 			else:
 				output_devs.append('X')
 		for po in list_pos:
 			if po.x != None:
-				output_pos.append(str(po.x) + ' ' + str(po.y))
+				output_pos.append(str(po.y) + ' ' + str(po.x))
 			else:
 				output_pos.append('X')
 
