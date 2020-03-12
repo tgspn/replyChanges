@@ -1,5 +1,5 @@
 class Replyer:
-    def __init__(self, replyer_d, company, bonus, skills = []):
+    def __init__(self, replyer_id, company, bonus, skills = []):
         self.id = replyer_id
         self.company = company
         self.bonus = bonus
