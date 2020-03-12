@@ -97,7 +97,7 @@ class Mapa:
 
 		lista_pos_aux = list_pos.copy()
 		lista_pos_aux = random.sample(lista_pos_aux, len(lista_pos_aux))
-		if self.mapa[x][y] == -2:
+		if self.mapa[x][y][0] == -2:
 			if len(lista_devs_aux) > 0:
 				escolha = lista_devs_aux.pop()
 				if escolha.x == None:
@@ -115,6 +115,23 @@ class Mapa:
 					escolha.y = y
 					self.mapa[x][y][1] = escolha.id
 
+		if self.mapa[x][y][0] == -3:
+			if len(lista_pos_aux) > 0:
+				escolha = lista_pos_aux.pop()
+				if escolha.x == None:
+					escolha.x = x
+					escolha.y = y
+					anterior = list_pos[self.mapa[x][y][1]]
+					anterior.x = None
+					anterior.y = None
+					self.mapa[x][y][1] = escolha.id
+				else:
+					anterior = list_pos[self.mapa[x][y][1]]
+					anterior.x = escolha.x
+					anterior.y = escolha.y
+					escolha.x = x
+					escolha.y = y
+					self.mapa[x][y][1] = escolha.id
 
 
 

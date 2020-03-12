@@ -9,9 +9,9 @@ def read_input(file_path):
         m,n = linhas[0].split()
         n = int(n)
         qtd_devs = int(linhas[n+1])
-        
+
         qtd_pos = int(linhas[qtd_devs+n+2])
-        
+
         mapa = linhas[1:n+1]
         linhas_devs = linhas[n+2:qtd_devs+n+2]
         linhas_pos = linhas[qtd_devs+n+3::]
@@ -43,22 +43,22 @@ def read_input(file_path):
         return mapa_final, list_devs, list_pos
 
 
-        
 
+
+mapa_final, list_devs, list_pos = read_input(sys.argv[1])
+mapa_ = Mapa(mapa_final)
+mapa_.config_map()
+mapa_.set_random(list_devs, list_pos)
 max_score = -1
+
 while(True):
-	mapa_final, list_devs, list_pos = read_input(sys.argv[1])
-	# for m in mapa_final:
-	#     print(m)
-
-
-	mapa_ = Mapa(mapa_final) 
-	mapa_.config_map()
-	mapa_.set_random(list_devs, list_pos)
+	for i in range(1):
+		x, y = mapa_.pegar_o_mais_fdp()
+		mapa_.random_swap_fdp(x, y, list_devs, list_pos)
 	score = mapa_.get_score(list_devs, list_pos)
 	if max_score < score:
 		max_score = score
-		
+
 		output_devs = list()
 		output_pos = list()
 		for dev in list_devs:
@@ -71,7 +71,7 @@ while(True):
 				output_pos.append(str(po.x) + ' ' + str(po.y))
 			else:
 				output_pos.append('X')
-		
+
 		result_output = '\n'.join(output_devs) + '\n' + '\n'.join(output_pos)
 		output_filename = sys.argv[2] + '/' + (sys.argv[1].split('/')[-1]).replace('.txt', '') + '.' + str(score)
 
