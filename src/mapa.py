@@ -28,15 +28,17 @@ class Mapa:
 		for i in range(len(self.mapa)):
 			for j in range(len(self.mapa[i])):
 				if self.mapa[i][j][0] == -2 and self.mapa[i][j][1] == -1:
-					escolha = lista_devs_aux.pop()
-					self.mapa[i][j][1] = escolha.id
-					escolha.x = i
-					escolha.y = j
+					if len(lista_devs_aux) > 0:
+						escolha = lista_devs_aux.pop()
+						self.mapa[i][j][1] = escolha.id
+						escolha.x = i
+						escolha.y = j
 				if self.mapa[i][j][0] == -3 and self.mapa[i][j][1] == -1:
-					escolha = lista_pos_aux.pop()
-					self.mapa[i][j][1] = escolha.id
-					escolha.x = i
-					escolha.y = j
+					if len(lista_pos_aux) > 0:
+						escolha = lista_pos_aux.pop()
+						self.mapa[i][j][1] = escolha.id
+						escolha.x = i
+						escolha.y = j
 		return self
 
 
