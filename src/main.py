@@ -21,7 +21,7 @@ def read_input(file_path):
             linha_mapa = [c for c in linha if c !='\n']
             mapa_final.append(linha_mapa)
 
-        mapa_final = Mapa(mapa_final)
+        # mapa_final = Mapa(mapa_final)
         list_devs = []
         i = 0
         for dev in linhas_devs:
@@ -47,9 +47,18 @@ def read_input(file_path):
 
 
 mapa_final, list_devs, list_pos = read_input(sys.argv[1])
-mapa_final.config_map()
-mapa_final.set_random(list_devs, list_pos)
-score = mapa_final.get_score(list_devs, list_pos)
+print(list_pos)
+# for m in mapa_final:
+#     print(m)
+max_score = -1
+
+while(True):
+	mapa_ = Mapa(mapa_final) 
+	mapa_.config_map()
+	mapa_.set_random(list_devs, list_pos)
+	score = mapa_.get_score(list_devs, list_pos)
+	if max_score < score:
+		max_score = score
+		print(max_score)
 print(score)
-for m in mapa_final.mapa:
-    print(m)
+

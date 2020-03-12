@@ -14,7 +14,7 @@ class Mapa:
 				item2 = item2.replace("_",'-2')
 				item2 = item2.replace("M",'-3')
 				add = int(item2)
-				linha.append([add,-1])
+				linha.append([add, -1, -1])
 			mapa_aux.append(linha)
 		self.mapa = mapa_aux
 
@@ -30,9 +30,13 @@ class Mapa:
 				if self.mapa[i][j][0] == -2 and self.mapa[i][j][1] == -1:
 					escolha = lista_devs_aux.pop()
 					self.mapa[i][j][1] = escolha.id
+					escolha.x = i
+					escolha.y = j
 				if self.mapa[i][j][0] == -3 and self.mapa[i][j][1] == -1:
 					escolha = lista_pos_aux.pop()
 					self.mapa[i][j][1] = escolha.id
+					escolha.x = i
+					escolha.y = j
 		return self
 
 
@@ -45,26 +49,45 @@ class Mapa:
 				if self.mapa[i][j][0] == -2 and self.mapa[i][j][1] != -1:
 					dev = list_devs[self.mapa[i][j][1]]
 					coleguinhas = self.get_colegas(i, j)
+					score_coleguinhas = 0
 					for colega in coleguinhas:
 						x, y = colega[0], colega[1]
 						if self.mapa[x][y][0] == -2 and self.mapa[x][y][1] != -1: 
 							dev2 = list_devs[self.mapa[x][y][1]]
-							score_map += self.calc_score_posic(dev, dev2)
+							score_coleguinhas += self.calc_score_posic(dev, dev2)
 						if self.mapa[x][y][0] == -3 and self.mapa[x][y][1] != -1: 
 							po2 = list_devs[self.mapa[x][y][1]]
-							score_map += self.calc_score_posic(dev, po2)
+							score_coleguinhas += self.calc_score_posic(dev, po2)
+						score_map += score_coleguinhas
+						self.mapa[i][j][2] = score_coleguinhas
 				if self.mapa[i][j][0] == -3 and self.mapa[i][j][1] != -1:
 					po = list_devs[self.mapa[i][j][1]]
 					coleguinhas = self.get_colegas(i, j)
+					score_coleguinhas = 0
 					for colega in coleguinhas:
 						x, y = colega[0], colega[1]
 						if self.mapa[x][y][0] == -2 and self.mapa[x][y][1] != -1: 
 							dev2 = list_devs[self.mapa[x][y][1]]
-							score_map += self.calc_score_posic(po, dev2)
+							score_coleguinhas += self.calc_score_posic(po, dev2)
 						if self.mapa[x][y][0] == -3 and self.mapa[x][y][1] != -1: 
 							po2 = list_devs[self.mapa[x][y][1]]
-							score_map += self.calc_score_posic(po, po2)
+							score_coleguinhas += self.calc_score_posic(po, po2)
+						score_map += score_coleguinhas
+						self.mapa[i][j][2] = score_coleguinhas
 		return score_map
+
+	def pegar_o_mais_fdp(self):
+		menor = 10000**10000
+		x = -1
+		y = -1
+		for i in range(len(self.mapa)):
+			for j in range(len(self.mapa[i])):
+				if self.mapa[i][j][3] < menor:
+					x = i
+					y = j
+					menor = self.mapa[i][j][3]
+		return x, y
+
 
 
 	def get_colegas(self, i, j):
