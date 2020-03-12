@@ -84,11 +84,38 @@ class Mapa:
 		y = -1
 		for i in range(len(self.mapa)):
 			for j in range(len(self.mapa[i])):
-				if self.mapa[i][j][3] < menor:
+				if self.mapa[i][j][2] < menor and self.mapa[i][j][0] != -1:
 					x = i
 					y = j
-					menor = self.mapa[i][j][3]
+					menor = self.mapa[i][j][2]
 		return x, y
+
+
+	def random_swap_fdp(self, x, y, list_devs, list_pos):
+		lista_devs_aux = list_devs.copy()
+		lista_devs_aux = random.sample(lista_devs_aux, len(lista_devs_aux))
+
+		lista_pos_aux = list_pos.copy()
+		lista_pos_aux = random.sample(lista_pos_aux, len(lista_pos_aux))
+		if self.mapa[x][y] == -2:
+			if len(lista_devs_aux) > 0:
+				escolha = lista_devs_aux.pop()
+				if escolha.x == None:
+					escolha.x = x
+					escolha.y = y
+					anterior = list_devs[self.mapa[x][y][1]]
+					anterior.x = None
+					anterior.y = None
+					self.mapa[x][y][1] = escolha.id
+				else:
+					anterior = list_devs[self.mapa[x][y][1]]
+					anterior.x = escolha.x
+					anterior.y = escolha.y
+					escolha.x = x
+					escolha.y = y
+					self.mapa[x][y][1] = escolha.id
+
+
 
 
 

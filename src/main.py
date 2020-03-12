@@ -45,14 +45,13 @@ def read_input(file_path):
 
         
 
-
-mapa_final, list_devs, list_pos = read_input(sys.argv[1])
-
-# for m in mapa_final:
-#     print(m)
 max_score = -1
-
 while(True):
+	mapa_final, list_devs, list_pos = read_input(sys.argv[1])
+	# for m in mapa_final:
+	#     print(m)
+
+
 	mapa_ = Mapa(mapa_final) 
 	mapa_.config_map()
 	mapa_.set_random(list_devs, list_pos)
